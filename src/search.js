@@ -8,7 +8,7 @@ import logo from './images/logo.png';
 class Search extends React.Component {
     render() {
         return <div className="search-text">
-            复习 webpack 李春明
+            复习 webpack 李春明 2024 webpack + react + vue 2024
             <img src={logo} />
             </div>;
     }

@@ -1,12 +1,14 @@
-'use strick'
+'use strict';
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const webpack = require("webpack")
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+const webpack = require("webpack")
+const path = require('path');
  
 
-exports = module.exports = {
+module.exports = {
     entry: {
         index: './src/index.js',
         search: './src/search.js'
@@ -25,7 +27,6 @@ exports = module.exports = {
             {
                 test: /.css$/,
                 use: [
-                    // 'style-loader',
                     MiniCssExtractPlugin.loader,
                     'css-loader'
                 ]
@@ -33,10 +34,25 @@ exports = module.exports = {
             {
                 test: /.less$/,
                 use: [
-                    // 'style-loader',
                     MiniCssExtractPlugin.loader,
                     'css-loader',
-                    'less-loader'
+                    'less-loader',
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            postcssOptions: {
+                                plugins: [
+                                    ['autoprefixer', {
+                                        // options
+                                        overrideBrowserslist: ['last 2 versions', '> 0.01%', 'ios 7']
+                                    }],
+                                ],
+                        //   postcssOptions: {
+                        //     plugins: ["autoprefixer"],
+                        //     config: path.resolve(__dirname, 'postcss.config.js')
+                          },
+                        },
+                    },
                 ]
             },
             {
@@ -91,6 +107,7 @@ exports = module.exports = {
             },
 
         }),
+        new CleanWebpackPlugin(),
     ],
     optimization: {
         minimize: true,

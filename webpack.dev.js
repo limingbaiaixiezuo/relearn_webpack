@@ -1,9 +1,9 @@
-'use strick'
+'use strict';
 const webpack = require("webpack")
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
  
-
-exports = module.exports = {
+module.exports = {
     entry: {
         index: './src/index.js',
         search: './src/search.js'
@@ -57,6 +57,7 @@ exports = module.exports = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
+        new CleanWebpackPlugin()
     ],
     devServer: {
         static: './dist',
